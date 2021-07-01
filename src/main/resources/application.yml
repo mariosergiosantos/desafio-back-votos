@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  rabbitmq:
+    host: 192.168.99.100
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: cooperativismo-service
+  datasource:
+    url: jdbc:mysql://db-cooperativismo.cxob2899jciy.us-east-2.rds.amazonaws.com/cooperativismo_db2?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: admin
+    password: cooperativismo1232021
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+springdoc:
+  api-docs:
+    path: '/api-docs'
+  swagger-ui:
+    path: '/swagger-ui-custom.html'
+
+queue:
+  session-ended:
+    name: votingSessionEndedQueue
