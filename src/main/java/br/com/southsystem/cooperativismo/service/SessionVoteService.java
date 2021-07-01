@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -29,9 +30,9 @@ public class SessionVoteService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    @Qualifier("votingSessionEndedQueue")
-    private Queue queue;
+//    @Autowired
+//    @Qualifier("votingSessionEndedQueue")
+//    private Queue queue;
 
     public SessionVote openSession(SessionVoteRequest sessionVoteRequest) {
         Schedule schedule = scheduleService.findById(sessionVoteRequest.getScheduleId());
@@ -65,5 +66,9 @@ public class SessionVoteService {
 
     public void notifySession(SessionVote sessionVote) {
         //rabbitTemplate.convertAndSend(this.queue.getName(), "");
+    }
+
+    public Optional<SessionVote> findSessionOpenBySchedule(Long scheduleId) {
+        return sessionVoteRepository.findByStatusSessionAndScheduleId(StatusSession.OPEN, scheduleId);
     }
 }

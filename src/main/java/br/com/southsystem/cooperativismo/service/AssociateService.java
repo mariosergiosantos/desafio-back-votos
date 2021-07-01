@@ -2,18 +2,40 @@ package br.com.southsystem.cooperativismo.service;
 
 import br.com.southsystem.cooperativismo.domain.dto.ValidateCpfResponse;
 import br.com.southsystem.cooperativismo.domain.enumerate.StatusUser;
+import br.com.southsystem.cooperativismo.domain.model.Associate;
+import br.com.southsystem.cooperativismo.domain.request.AssociateRequest;
+import br.com.southsystem.cooperativismo.exception.NotFoundException;
+import br.com.southsystem.cooperativismo.repostory.AssociateRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Log4j2
 @Service
 public class AssociateService {
 
     @Autowired
+    private AssociateRepository associateRepository;
+
+    @Autowired
     private RestTemplate restTemplate;
+
+    public Associate findById(Long associateId) {
+        return associateRepository.findById(associateId).orElseThrow(() ->
+                new NotFoundException(String.format("Associado com código %d não encontrado", associateId)));
+    }
+
+    public List<Associate> findAll() {
+        return associateRepository.findAll();
+    }
+
+    public Associate registerNewAssociate(AssociateRequest associateRequest) {
+        return associateRepository.save(new Associate(associateRequest.getName(), associateRequest.getDocument()));
+    }
 
     public ValidateCpfResponse validateDocumentAssociate(String cpf) {
         log.info("INICIANDO VALIDAÇÃO DO CPF NA API EXTERNA {}", cpf);

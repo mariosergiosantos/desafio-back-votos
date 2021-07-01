@@ -18,7 +18,7 @@ public class Schedule {
     @Column(name = "title", unique = true, nullable = false)
     private String title;
 
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public Schedule() {
 

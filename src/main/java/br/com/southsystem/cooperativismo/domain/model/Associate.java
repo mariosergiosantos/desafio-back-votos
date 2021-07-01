@@ -19,4 +19,13 @@ public class Associate {
 
     @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
+
+    public Associate() {
+
+    }
+
+    public Associate(String name, String cpf) {
+        this.name = name;
+        this.cpf = cpf;
+    }
 }

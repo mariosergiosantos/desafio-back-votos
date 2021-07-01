@@ -92,6 +92,7 @@ public class ApiExceptionHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleOtherException(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         Wrapper wrapper = createWrapper(status, ProblemType.ERRO_DE_SISTEMA, INTERNAL_ERROR, request).build();
+        ex.printStackTrace();
         return this.handleExceptionInternal(ex, wrapper, new HttpHeaders(), status, request);
     }
 
@@ -100,6 +101,7 @@ public class ApiExceptionHandle extends ResponseEntityExceptionHandler {
         String description = String.format("O recurso %s, que você tentou acessar, é inexistente.", ex.getRequestURL());
         ex.printStackTrace();
         Wrapper wrapper = createWrapper(status, ProblemType.RECURSO_NAO_ENCONTRADO, description, request).build();
+        ex.printStackTrace();
         return this.handleExceptionInternal(ex, wrapper, headers, status, request);
     }
 
@@ -124,6 +126,7 @@ public class ApiExceptionHandle extends ResponseEntityExceptionHandler {
         });
 
         Wrapper wrapper = createWrapper(status, DADOS_INVALIDOS, request, errors).build();
+        ex.printStackTrace();
         return super.handleExceptionInternal(ex, wrapper, headers, status, request);
     }
 
@@ -146,6 +149,7 @@ public class ApiExceptionHandle extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
         if (body == null) {
             body = Wrapper.builder().date(LocalDateTime.now()).title(status.getReasonPhrase()).status(status.value())
+                    .detail(ex.getMessage())
                     .path(((ServletWebRequest) request).getRequest().getRequestURI())
                     .build();
         } else if (body instanceof String) {
@@ -154,6 +158,7 @@ public class ApiExceptionHandle extends ResponseEntityExceptionHandler {
                     .build();
         }
 
+        ex.printStackTrace();
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 

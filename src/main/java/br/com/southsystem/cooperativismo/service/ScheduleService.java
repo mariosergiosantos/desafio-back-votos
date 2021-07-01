@@ -28,9 +28,9 @@ public class ScheduleService {
         return schedule;
     }
 
-    public Schedule findById(Long pautaId) {
-        return scheduleRepository.findById(pautaId).orElseThrow(() ->
-                new NotFoundException(String.format("Pauta com código %d não encontrado", pautaId)));
+    public Schedule findById(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId).orElseThrow(() ->
+                new NotFoundException(String.format("Pauta com código %d não encontrado", scheduleId)));
     }
 
     public List<Schedule> findAll() {
