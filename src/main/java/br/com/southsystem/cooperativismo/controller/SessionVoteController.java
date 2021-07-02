@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class SessionVoteController {
@@ -14,8 +15,13 @@ public class SessionVoteController {
     @Autowired
     private SessionVoteService sessionVoteService;
 
-    @PostMapping("/v1/session/open-session/schedule/{scheduleId}")
-    public SessionVote openSession(@PathVariable("scheduleId") Long scheduleId, @RequestBody @Valid SessionVoteRequest sessionVoteRequest) {
+    @GetMapping("/v1/session")
+    public List<SessionVote> getAllSessions() {
+        return sessionVoteService.findAll();
+    }
+
+    @PostMapping("/v1/session/open")
+    public SessionVote openSession(@RequestBody @Valid SessionVoteRequest sessionVoteRequest) {
         return sessionVoteService.openSession(sessionVoteRequest);
     }
 

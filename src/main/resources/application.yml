@@ -10,7 +10,7 @@ spring:
   application:
     name: cooperativismo-service
   datasource:
-    url: jdbc:mysql://db-cooperativismo.cxob2899jciy.us-east-2.rds.amazonaws.com/cooperativismo_db2?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://db-cooperativismo.cxob2899jciy.us-east-2.rds.amazonaws.com/cooperativismo_db3?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: admin
     password: cooperativismo1232021
   jpa:

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"associate_id", "schedule_id"})})
 public class Vote {
 
     @Id

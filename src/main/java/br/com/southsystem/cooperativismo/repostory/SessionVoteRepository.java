@@ -16,4 +16,6 @@ public interface SessionVoteRepository extends JpaRepository<SessionVote, Long> 
     SessionVote findByStatusSessionAndFinishAtLessThan(StatusSession statusSession, LocalDateTime now);
 
     Optional<SessionVote> findByStatusSessionAndScheduleId(StatusSession statusSession, Long scheduleId);
+
+    Optional<SessionVote> findByIdAndStatusSession(Long scheduleId, StatusSession statusSession);
 }

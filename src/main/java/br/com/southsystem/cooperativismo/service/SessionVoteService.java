@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -56,8 +57,8 @@ public class SessionVoteService {
     }
 
     public void closeSession(Long sessionId) {
-        SessionVote sessionVote = sessionVoteRepository.findById(sessionId).orElseThrow(() ->
-                new NotFoundException(String.format("Sessão com código %d não encontrado", sessionId)));
+        SessionVote sessionVote = sessionVoteRepository.findByIdAndStatusSession(sessionId, StatusSession.OPEN).orElseThrow(() ->
+                new NotFoundException(String.format("Sessão com código %d não encontrado ou já está fechado", sessionId)));
 
         sessionVote.setStatusSession(StatusSession.CLOSE);
         sessionVoteRepository.save(sessionVote);
@@ -70,5 +71,9 @@ public class SessionVoteService {
 
     public Optional<SessionVote> findSessionOpenBySchedule(Long scheduleId) {
         return sessionVoteRepository.findByStatusSessionAndScheduleId(StatusSession.OPEN, scheduleId);
+    }
+
+    public List<SessionVote> findAll() {
+        return sessionVoteRepository.findAll();
     }
 }
