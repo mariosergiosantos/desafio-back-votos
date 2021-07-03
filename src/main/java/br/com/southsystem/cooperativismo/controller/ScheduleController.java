@@ -2,7 +2,6 @@ package br.com.southsystem.cooperativismo.controller;
 
 import br.com.southsystem.cooperativismo.domain.model.Schedule;
 import br.com.southsystem.cooperativismo.domain.request.ScheduleRequest;
-import br.com.southsystem.cooperativismo.service.AssociateService;
 import br.com.southsystem.cooperativismo.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,6 @@ public class ScheduleController {
 
     @Autowired
     private ScheduleService scheduleService;
-
-    @Autowired
-    private AssociateService associateService;
 
     @GetMapping("/v1/schedule")
     public List<Schedule> getSchedules() {
