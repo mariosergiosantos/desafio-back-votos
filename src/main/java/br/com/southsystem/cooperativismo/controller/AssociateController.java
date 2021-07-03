@@ -1,9 +1,7 @@
 package br.com.southsystem.cooperativismo.controller;
 
 import br.com.southsystem.cooperativismo.domain.model.Associate;
-import br.com.southsystem.cooperativismo.domain.model.Schedule;
 import br.com.southsystem.cooperativismo.domain.request.AssociateRequest;
-import br.com.southsystem.cooperativismo.domain.request.ScheduleRequest;
 import br.com.southsystem.cooperativismo.service.AssociateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
