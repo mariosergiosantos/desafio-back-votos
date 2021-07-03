@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 public class QueueConfig {
 
     @Value("${queue.session-ended.name}")
-    private String sessionEndedName;
+    private String sessionEndedQueueName;
 
     @Bean
-    public Queue sessionEndedName() {
-        return new Queue(sessionEndedName, true);
+    public Queue sessionEndedQueue() {
+        return new Queue(sessionEndedQueueName, true);
     }
 }

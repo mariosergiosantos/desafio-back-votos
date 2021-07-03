@@ -4,11 +4,14 @@ import br.com.southsystem.cooperativismo.domain.enumerate.YesNoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Data
-public class ScheduleStatistics {
+public class ScheduleStatistics implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private YesNoEnum option;
     private Long countVotes;

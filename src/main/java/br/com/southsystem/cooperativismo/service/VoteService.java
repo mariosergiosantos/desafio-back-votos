@@ -66,10 +66,8 @@ public class VoteService {
         Long totalVotes = getTotalVotes(scheduleStatistics);
         ScheduleStatistics winner = getWinner(scheduleStatistics);
 
-        scheduleStatistics = scheduleStatistics.stream().map(scheduleStatistic -> {
-            scheduleStatistic.setTotalVotes(totalVotes);
-            return scheduleStatistic;
-        }).collect(Collectors.toList());
+        scheduleStatistics = scheduleStatistics.stream()
+                .peek(scheduleStatistic -> scheduleStatistic.setTotalVotes(totalVotes)).collect(Collectors.toList());
 
         Schedule schedule = scheduleService.findById(scheduleId);
 
@@ -83,7 +81,7 @@ public class VoteService {
         resultVote.setStatistics(scheduleStatistics);
         resultVote.setTotalVotes(totalVotes);
         resultVote.setScheduleTitle(schedule.getTitle());
-        resultVote.setSelectedOption(winner.getOption());
+        resultVote.setSelectedOption(winner);
 
         return resultVote;
     }

@@ -1,17 +1,16 @@
 package br.com.southsystem.cooperativismo.service;
 
+import br.com.southsystem.cooperativismo.domain.dto.ResultVote;
 import br.com.southsystem.cooperativismo.domain.enumerate.StatusSession;
 import br.com.southsystem.cooperativismo.domain.model.Schedule;
 import br.com.southsystem.cooperativismo.domain.model.SessionVote;
 import br.com.southsystem.cooperativismo.domain.request.SessionVoteRequest;
 import br.com.southsystem.cooperativismo.exception.BusinessException;
 import br.com.southsystem.cooperativismo.exception.NotFoundException;
+import br.com.southsystem.cooperativismo.queue.NotifySession;
 import br.com.southsystem.cooperativismo.repostory.SessionVoteRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,11 +28,10 @@ public class SessionVoteService {
     private ScheduleService scheduleService;
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private NotifySession notifySession;
 
-//    @Autowired
-//    @Qualifier("votingSessionEndedQueue")
-//    private Queue queue;
+    @Autowired
+    private VoteService voteService;
 
     public SessionVote openSession(SessionVoteRequest sessionVoteRequest) {
         Schedule schedule = scheduleService.findById(sessionVoteRequest.getScheduleId());
@@ -66,7 +64,8 @@ public class SessionVoteService {
     }
 
     public void notifySession(SessionVote sessionVote) {
-        //rabbitTemplate.convertAndSend(this.queue.getName(), "");
+        ResultVote resultSession = voteService.countVote(sessionVote.getSchedule().getId());
+        notifySession.finishSession(resultSession);
     }
 
     public Optional<SessionVote> findSessionOpenBySchedule(Long scheduleId) {
