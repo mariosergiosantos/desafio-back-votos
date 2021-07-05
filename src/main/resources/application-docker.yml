@@ -3,7 +3,7 @@ server:
 
 spring:
   rabbitmq:
-    host: localhost
+    host: rabbitmq-cooperativismo
     port: 5672
     username: guest
     password: guest
@@ -11,7 +11,7 @@ spring:
   application:
     name: cooperativismo-service
   datasource:
-    url: jdbc:mysql://localhost:3306/cooperativismo_db3?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://db-cooperativismo:3306/cooperativismo_db3?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: admin
     password: cooperativismo1232021
   jpa:

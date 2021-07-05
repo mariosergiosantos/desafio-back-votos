@@ -3,10 +3,10 @@ server:
 
 spring:
   rabbitmq:
-    host: 192.168.99.100
+    host: rabbitmq-cooperativismo
     port: 5672
-    username: guest
-    password: guest
+    username: mqadmin
+    password: Admin123XX_
     connection-timeout: 15000
   application:
     name: cooperativismo-service
