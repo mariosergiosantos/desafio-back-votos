@@ -3,7 +3,7 @@ server:
 
 spring:
   rabbitmq:
-    host: rabbitmq-cooperativismo
+    host: ec2-3-141-21-117.us-east-2.compute.amazonaws.com
     port: 5672
     username: mqadmin
     password: Admin123XX_

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,13 @@ public class VoteService {
         Optional<SessionVote> optionalSessionVote = sessionVoteService.findSessionOpenBySchedule(schedule.getId());
 
         if (!optionalSessionVote.isPresent()) {
-            throw new BusinessException(String.format("Não tem sessão de votação aberta para a pauta %d", voteRequest.getScheduleId()));
+            throw new NotFoundException(String.format("Não tem sessão de votação aberta para a pauta %d", voteRequest.getScheduleId()));
+        }
+
+        SessionVote sessionVote = optionalSessionVote.get();
+        if (sessionVote.getFinishAt().isBefore(LocalDateTime.now())) {
+            sessionVoteService.closeSession(sessionVote.getId());
+            throw new BusinessException(String.format("Sessão %d já encerrada", voteRequest.getScheduleId()));
         }
 
         try {

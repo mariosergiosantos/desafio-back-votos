@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface SessionVoteRepository extends JpaRepository<SessionVote, Long> {
 
-    Optional<SessionVote> findByStatusSession(StatusSession statusSession);
-
     SessionVote findByStatusSessionAndFinishAtLessThan(StatusSession statusSession, LocalDateTime now);
 
     Optional<SessionVote> findByStatusSessionAndScheduleId(StatusSession statusSession, Long scheduleId);

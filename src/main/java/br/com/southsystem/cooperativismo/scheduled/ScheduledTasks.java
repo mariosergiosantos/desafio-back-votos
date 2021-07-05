@@ -15,7 +15,7 @@ public class ScheduledTasks {
     @Autowired
     private SessionVoteService sessionVoteService;
 
-    @Scheduled(fixedRate = (MINUTES * 1000 * 60))
+    @Scheduled(fixedRate = (MINUTES * 5000 * 60))
     public void scheduledCloseSessionOpen() {
         sessionVoteService.closeSessionVoteExpire();
     }

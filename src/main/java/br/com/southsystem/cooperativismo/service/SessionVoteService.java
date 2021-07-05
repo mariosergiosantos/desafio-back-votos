@@ -36,7 +36,7 @@ public class SessionVoteService {
     public SessionVote openSession(SessionVoteRequest sessionVoteRequest) {
         Schedule schedule = scheduleService.findById(sessionVoteRequest.getScheduleId());
 
-        sessionVoteRepository.findByStatusSession(StatusSession.OPEN).ifPresent(sessionVote -> {
+        sessionVoteRepository.findByStatusSessionAndScheduleId(StatusSession.OPEN, schedule.getId()).ifPresent(sessionVote -> {
             throw new BusinessException("Já Existe uma sessão de votação aberta");
         });
 
