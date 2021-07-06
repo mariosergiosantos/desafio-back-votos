@@ -68,5 +68,5 @@ jobs:
       with:
         task-definition: task-definition.json
         service: desafio-back-votos
-        cluster: ecs-treinoaws
+        cluster: desafio-southsystem
         wait-for-service-stability: true
