@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
-    @Query("SELECT new br.com.southsystem.cooperativismo.domain.dto.ScheduleStatistics(v.vote, COUNT(v)) from Vote v GROUP BY v.vote")
+    @Query("SELECT new br.com.southsystem.cooperativismo.domain.dto.ScheduleStatistics(v.vote, COUNT(v)) from Vote v " +
+            "JOIN v.schedule schedule " +
+            "WHERE schedule.id = :scheduleId " +
+            "GROUP BY v.vote")
     List<ScheduleStatistics> findByScheduleId(Long scheduleId);
 }
